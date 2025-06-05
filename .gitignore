@@ -1,0 +1,4 @@
+backend/book-service/app/build/
+backend/book-service/build/
+backend/book-service/.gradle/
+**/node_modules/

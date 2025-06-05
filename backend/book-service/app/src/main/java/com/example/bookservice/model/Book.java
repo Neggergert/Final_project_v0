@@ -12,12 +12,14 @@ public class Book {
     private Long id;
     private String title;
     private String author;
+    private String location;
 
     public Book() {}
 
-    public Book(String title, String author) {
+    public Book(String title, String author, String location) {
         this.title = title;
         this.author = author;
+        this.location = location;
     }
 
     public Long getId() {
@@ -42,5 +44,13 @@ public class Book {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

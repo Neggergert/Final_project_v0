@@ -27,12 +27,26 @@ class BookControllerTest {
     void shouldCreateAndFetchBooks() throws Exception {
         mockMvc.perform(post("/books")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"title\":\"Test\",\"author\":\"Author\"}"))
+                .content("{\"title\":\"Test\",\"author\":\"Author\",\"location\":\"Campus\"}"))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").exists());
 
         mockMvc.perform(get("/books"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].title").value("Test"));
+
+        mockMvc.perform(get("/books?title=Test&author=Author"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].location").value("Campus"));
+
+        Long id = repository.findAll().get(0).getId();
+        mockMvc.perform(post("/books/" + id + "/exchange")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"fromUserId\":1,\"toUserId\":2,\"location\":\"Campus\"}"))
+                .andExpect(status().isCreated());
+
+        mockMvc.perform(get("/admin/stats"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.exchanges").value(1));
     }
 }

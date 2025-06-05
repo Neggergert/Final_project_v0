@@ -1,7 +1,18 @@
-# Курсовой проект
+# Book Exchange Service
 
-В этом репозитории вам нужно его реализовать
+This project provides a simple platform where users can share books with each other. It consists of the following services:
 
-## Ссылка на ТЗ:
+- **book-service** – main Spring Boot application exposing REST API
+- **auth-service** – authentication service written in Go
+- **frontend** – React SPA
+- **PostgreSQL** – database used by book-service
 
-https://git.culab.ru/bsc-development-basics-2nd-semester/dev-basics-2025-longreads/-/tree/main/course-project?ref_type=heads
+To start the whole system run:
+
+```bash
+docker-compose up --build
+```
+
+The frontend will be available at `http://localhost:3000` after the services start. Any username/password can be used to obtain a token from the auth-service. 
+
+Swagger UI for the book-service is available at `http://localhost:8080/swagger-ui.html` when the services are running.

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 const BOOK_API = 'http://localhost:8080';
 const AUTH_API = 'http://localhost:8081';
 
-function Login({ onToken }) {
+function Login({ onToken, onSwitch }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -38,6 +38,56 @@ function Login({ onToken }) {
         placeholder="password"
       />
       <button type="submit">Sign in</button>
+      <p>
+        No account?{' '}
+        <button type="button" onClick={onSwitch}>
+          Register
+        </button>
+      </p>
+    </form>
+  );
+}
+
+function Register({ onSwitch }) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const submit = async e => {
+    e.preventDefault();
+    const res = await fetch(`${AUTH_API}/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+    if (res.ok) {
+      alert('Registered! You can now log in.');
+      onSwitch();
+    } else {
+      alert('Registration failed');
+    }
+  };
+
+  return (
+    <form onSubmit={submit}>
+      <h2>Register</h2>
+      <input
+        value={username}
+        onChange={e => setUsername(e.target.value)}
+        placeholder="username"
+      />
+      <input
+        type="password"
+        value={password}
+        onChange={e => setPassword(e.target.value)}
+        placeholder="password"
+      />
+      <button type="submit">Sign up</button>
+      <p>
+        Already have an account?{' '}
+        <button type="button" onClick={onSwitch}>
+          Login
+        </button>
+      </p>
     </form>
   );
 }
@@ -163,9 +213,14 @@ function Books() {
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
+  const [showRegister, setShowRegister] = useState(false);
 
   if (!token) {
-    return <Login onToken={setToken} />;
+    return showRegister ? (
+      <Register onSwitch={() => setShowRegister(false)} />
+    ) : (
+      <Login onToken={setToken} onSwitch={() => setShowRegister(true)} />
+    )
   }
 
   return <Books />;

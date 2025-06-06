@@ -1,6 +1,6 @@
 package com.example.bookservice;
 
-import com.example.bookservice.model.Book;
+// import com.example.bookservice.model.Book;
 import com.example.bookservice.repository.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

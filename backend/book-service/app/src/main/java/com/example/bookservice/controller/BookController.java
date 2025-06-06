@@ -1,17 +1,25 @@
 package com.example.bookservice.controller;
 
+
+
 import com.example.bookservice.model.Book;
+
 import com.example.bookservice.repository.BookRepository;
 import com.example.bookservice.repository.ExchangeRepository;
 import com.example.bookservice.model.Exchange;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+
+
 import java.util.List;
 import java.util.Optional;
 
+
 @RestController
+
 @RequestMapping("/books")
+
 public class BookController {
     private final BookRepository bookRepository;
     private final ExchangeRepository exchangeRepository;
@@ -20,6 +28,7 @@ public class BookController {
         this.bookRepository = bookRepository;
         this.exchangeRepository = exchangeRepository;
     }
+
 
     @GetMapping
     public List<Book> getBooks(@RequestParam Optional<String> title,
@@ -30,6 +39,7 @@ public class BookController {
         }
         return bookRepository.findAll();
     }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

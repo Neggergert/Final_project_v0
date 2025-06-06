@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
-@SpringBootTest(properties = "spring.datasource.url=jdbc:h2:mem:testdb")
+@SpringBootTest(properties = {"spring.datasource.url=jdbc:h2:mem:testdb", "auth.enabled=false"})
 @AutoConfigureMockMvc
 @TestPropertySource(properties = "spring.jpa.hibernate.ddl-auto=create-drop")
 class BookControllerTest {
